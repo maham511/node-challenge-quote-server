@@ -28,6 +28,41 @@ app.get("/quotes/random", (req, res) => {
   res.json(pickFromArray(quotes));
 });
 
+
+//Level 2
+
+//returns search query
+app.get('/quotes/search/', sendQuote);
+
+function test (req, res) {
+  // const term = req.query.term;
+  // res.send('i like the term:' + term); //returns str + searched term
+}
+
+  //Take term 
+  //check if term included in an obj
+  //return all filtered obj
+
+  //Searches both author n quote, case sensitive
+//  function sendQuote (req, res) {
+//   const term = req.query.term;
+//   const filteredQuotes = quotes.filter((elem) => {
+//    return elem.quote.includes(term) || elem.author.includes(term);
+//   });
+
+//   res.json(filteredQuotes);
+  
+// }
+
+function sendQuote(req, res) {
+  const term = req.query.term;
+  const filteredQuotes = quotes.filter((elem) => {
+    return elem.quote.includes(term) || elem.author.includes(term);
+  });
+
+  res.json(filteredQuotes);
+}
+
 //...END OF YOUR CODE
 
 //You can use this function to pick one element at random from a given array
