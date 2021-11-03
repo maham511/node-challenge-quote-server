@@ -20,47 +20,34 @@ app.get("/", function (request, response) {
 
 //returns all quotes in json
 app.get("/quotes", (req, res) => {
-  res.json(quotes);
+  res.send(quotes);
 });
 
 //returns random quote json using pickFromArray function
 app.get("/quotes/random", (req, res) => {
-  res.json(pickFromArray(quotes));
+  res.send(pickFromArray(quotes));
 });
 
+//--------------------
 
 //Level 2
 
 //returns search query
 app.get('/quotes/search/', sendQuote);
 
-function test (req, res) {
-  // const term = req.query.term;
-  // res.send('i like the term:' + term); //returns str + searched term
-}
-
-  //Take term 
-  //check if term included in an obj
-  //return all filtered obj
-
-  //Searches both author n quote, case sensitive
-//  function sendQuote (req, res) {
-//   const term = req.query.term;
-//   const filteredQuotes = quotes.filter((elem) => {
-//    return elem.quote.includes(term) || elem.author.includes(term);
-//   });
-
-//   res.json(filteredQuotes);
-  
-// }
-
 function sendQuote(req, res) {
-  const term = req.query.term;
-  const filteredQuotes = quotes.filter((elem) => {
-    return elem.quote.includes(term) || elem.author.includes(term);
+  let term = req.query.term; //query param for user
+  term = term.toLowerCase(); //for case-insensitive search
+
+  //filters quotes arr, returns objs including search term in quote or author values, case insensitive 
+  const filteredQuotes = quotes.filter(( {quote, author} ) => {
+    return (
+      quote.toLowerCase().includes(term) ||
+      author.toLowerCase().includes(term)
+    );
   });
 
-  res.json(filteredQuotes);
+  res.send(filteredQuotes);
 }
 
 //...END OF YOUR CODE
